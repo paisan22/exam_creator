@@ -1,7 +1,7 @@
 package nl.paisanrietbroek.DAO;
 
 import nl.paisanrietbroek.Model.Category;
-import nl.paisanrietbroek.Model.Exame;
+import nl.paisanrietbroek.Model.Exam;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,19 +18,19 @@ public class CategoryDAO {
     public CategoryDAO() {
         this.categoryArrayList = new ArrayList<>();
 
-        Exame exame = new Exame();
-        exame.setName("test exame");
+        Exam exam = new Exam();
+        exam.setName("test exam");
 
-        Exame exame2 = new Exame();
-        exame2.setName("test2 exame");
+        Exam exam2 = new Exam();
+        exam2.setName("test2 exam");
 
-        ArrayList<Exame> exames = new ArrayList<>();
-        exames.add(exame);
-        exames.add(exame2);
+        ArrayList<Exam> exams = new ArrayList<>();
+        exams.add(exam);
+        exams.add(exam2);
 
         Category category = new Category();
         category.setName("category1");
-        category.setExameArrayList(exames);
+        category.setExamArrayList(exams);
 
         Category category2 = new Category();
 

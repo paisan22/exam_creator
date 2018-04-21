@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 @Data
-public class Exame {
+public class Exam {
 
     private int id;
 

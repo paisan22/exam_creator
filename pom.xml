@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>nl.paisanrietbroek</groupId>
-	<artifactId>exame_creator</artifactId>
+	<artifactId>exam_creator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>exame_creator</name>
+	<name>exam_creator</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>

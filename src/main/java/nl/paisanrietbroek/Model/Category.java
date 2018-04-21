@@ -15,6 +15,6 @@ public class Category {
 
     private String name;
 
-    private ArrayList<Exame> exameArrayList;
+    private ArrayList<Exam> examArrayList;
 
 }
