@@ -1,20 +1,34 @@
 package nl.paisanrietbroek.Model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by paisanrietbroek on 21/04/2018.
  */
 
 @Data
-public class Category {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity(name = "category")
+public class Category implements Serializable {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
+    @Column(name = "name")
     private String name;
 
-    private ArrayList<Exam> examArrayList;
+    @Column(name = "exams")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Exam> exams;
 
 }

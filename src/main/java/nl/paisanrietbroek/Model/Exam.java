@@ -1,21 +1,37 @@
 package nl.paisanrietbroek.Model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by paisanrietbroek on 21/04/2018.
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity(name = "exam")
 public class Exam {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    private int categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
+    @Column(name = "name")
     private String name;
 
-    private ArrayList<Question> questionArrayList;
+    @Column(name = "questions")
+    @OneToMany(mappedBy = "exam", cascade = {CascadeType.ALL})
+    private List<Question> questions;
+
 }

@@ -1,11 +1,14 @@
 package nl.paisanrietbroek.Service;
 
-import nl.paisanrietbroek.DAO.CategoryDAO;
+import nl.paisanrietbroek.DAO.ICategoryDAO;
 import nl.paisanrietbroek.Model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.persistence.PersistenceException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by paisanrietbroek on 21/04/2018.
@@ -14,10 +17,72 @@ import java.util.ArrayList;
 public class CategoryService {
 
     @Autowired
-    private CategoryDAO categoryDAO;
+    private ICategoryDAO categoryDAO;
 
-    public ArrayList<Category> getAllCategories() {
-        return categoryDAO.getAllCategories();
+    @Autowired
+    private LogToFile logToFile;
+
+    public List<Category> getAllCategories() {
+        return categoryDAO.findAll();
     }
 
+    public boolean createCategory(HashMap<String, String> body) throws IOException {
+        Category category = Category.builder()
+                .name(body.get("name"))
+                .build();
+
+        boolean result = false;
+
+        try {
+            categoryDAO.save(category);
+            result = true;
+        } catch (PersistenceException e) {
+            logToFile.logWarningToFile(e.getMessage());
+        }
+        return result;
+    }
+
+    public Category getCategory(HashMap<String, String> body) throws IOException {
+
+        try {
+            int id = Integer.parseInt(body.get("id"));
+            return categoryDAO.getOne(id);
+        } catch (PersistenceException e) {
+            logToFile.logWarningToFile(e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean deleteCategory(HashMap<String, String> body) throws IOException {
+
+        boolean result = false;
+
+        try {
+            int id = Integer.parseInt(body.get("id"));
+            Category category = categoryDAO.getOne(id);
+            categoryDAO.delete(category);
+            result = true;
+        } catch (PersistenceException e) {
+            logToFile.logWarningToFile(e.getMessage());
+        }
+        return result;
+    }
+
+    public boolean updateCategory(HashMap<String, String> body) throws IOException {
+
+        boolean result = false;
+
+        try {
+            int id = Integer.parseInt(body.get("id"));
+            Category one = categoryDAO.getOne(id);
+            one.setName(body.get("name"));
+            categoryDAO.save(one);
+            result = true;
+
+        } catch (PersistenceException e) {
+            logToFile.logWarningToFile(e.getMessage());
+        }
+
+        return result;
+    }
 }
