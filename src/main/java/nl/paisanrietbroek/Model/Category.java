@@ -1,9 +1,7 @@
 package nl.paisanrietbroek.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +11,8 @@ import java.util.List;
  * Created by paisanrietbroek on 21/04/2018.
  */
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -28,7 +27,10 @@ public class Category implements Serializable {
     private String name;
 
     @Column(name = "exams")
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private List<Exam> exams;
+
+
 
 }

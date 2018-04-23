@@ -1,30 +1,31 @@
 package nl.paisanrietbroek.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by paisanrietbroek on 21/04/2018.
  */
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity(name = "exam")
-public class Exam {
+@Getter
+@Setter
+public class Exam implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category")
+    @JsonManagedReference
     private Category category;
 
     @Column(name = "name")

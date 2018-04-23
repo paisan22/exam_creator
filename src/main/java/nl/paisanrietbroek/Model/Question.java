@@ -1,9 +1,7 @@
 package nl.paisanrietbroek.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,7 +9,8 @@ import javax.persistence.*;
  * Created by paisanrietbroek on 21/04/2018.
  */
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,9 +28,10 @@ public class Question {
     private String answer;
 
     @Column(name = "passed")
-    private boolean passed;
+    private boolean passed = false;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "exam_id")
+    @JoinColumn(name = "exam")
+    @JsonIgnore
     private Exam exam;
 }

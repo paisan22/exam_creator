@@ -1,4 +1,4 @@
-package nl.paisanrietbroek.aspect;
+package nl.paisanrietbroek.Aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
