@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exam")
+@CrossOrigin
 public class ExamAPI {
 
     @Autowired
@@ -25,9 +26,19 @@ public class ExamAPI {
         return examService.createExam(exam);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Exam> getAllExams() throws IOException {
         return examService.getAllExams();
+    }
+
+    @GetMapping
+    public Exam getExamById(@RequestHeader HashMap<String, String> header) {
+        return examService.getExamById(header);
+    }
+
+    @GetMapping("/by_category")
+    public List<Exam> getExamsByCategory(@RequestHeader HashMap<String, String> header) {
+        return examService.getExamsByCategory(header);
     }
 
     @PutMapping("/update")

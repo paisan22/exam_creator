@@ -2,6 +2,7 @@ package nl.paisanrietbroek.Service;
 
 import nl.paisanrietbroek.DAO.ICategoryDAO;
 import nl.paisanrietbroek.DAO.IExamDAO;
+import nl.paisanrietbroek.Model.Category;
 import nl.paisanrietbroek.Model.Exam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,13 @@ public class ExamService {
             logToFile.logWarningToFile(e.getMessage());
         }
         return result;
+    }
+
+    public Exam setExamForQuestions(Exam exam) {
+        exam.getQuestions().forEach(question -> {
+            question.setExam(exam);
+        });
+        return exam;
     }
 
     public List<Exam> getAllExams() throws IOException {
@@ -82,11 +90,16 @@ public class ExamService {
         return result;
     }
 
-    public Exam setExamForQuestions(Exam exam) {
-        exam.getQuestions().forEach(question -> {
-            question.setExam(exam);
-        });
-        return exam;
+
+
+    public Exam getExamById(HashMap<String, String> header) {
+        return examDAO.getOne(Integer.parseInt(header.get("id")));
     }
 
+    public List<Exam> getExamsByCategory(HashMap<String, String> header) {
+        int id = Integer.parseInt(header.get("id"));
+
+        Category one = categoryDAO.getOne(id);
+        return examDAO.findByCategory(one);
+    }
 }

@@ -27,6 +27,9 @@ public class Question {
     @Column(name = "answer")
     private String answer;
 
+    @Column(name = "attempts")
+    private Integer attempts = 0;
+
     @Column(name = "passed")
     private boolean passed = false;
 
@@ -34,4 +37,5 @@ public class Question {
     @JoinColumn(name = "exam")
     @JsonIgnore
     private Exam exam;
+
 }

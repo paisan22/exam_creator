@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
+@CrossOrigin
 public class CategoryAPI {
 
     @Autowired
@@ -26,7 +27,7 @@ public class CategoryAPI {
     }
 
     @PostMapping("/create")
-    public boolean createCategory(@RequestBody HashMap<String, String> body) throws IOException {
+    public Category createCategory(@RequestBody HashMap<String, String> body) throws IOException {
         return categoryService.createCategory(body);
     }
 
@@ -41,7 +42,7 @@ public class CategoryAPI {
     }
 
     @PutMapping("update")
-    public boolean updateCategory(@RequestBody HashMap<String, String> body) throws IOException {
+    public Category updateCategory(@RequestBody HashMap<String, String> body) throws IOException {
         return categoryService.updateCategory(body);
     }
 }

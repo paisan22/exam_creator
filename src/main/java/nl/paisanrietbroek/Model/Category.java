@@ -2,8 +2,11 @@ package nl.paisanrietbroek.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
@@ -29,6 +32,7 @@ public class Category implements Serializable {
     @Column(name = "exams")
     @OneToMany(mappedBy = "category")
     @JsonBackReference
+    @Cascade(CascadeType.ALL)
     private List<Exam> exams;
 
 

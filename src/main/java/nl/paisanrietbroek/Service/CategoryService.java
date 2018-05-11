@@ -26,20 +26,18 @@ public class CategoryService {
         return categoryDAO.findAll();
     }
 
-    public boolean createCategory(HashMap<String, String> body) throws IOException {
+    public Category createCategory(HashMap<String, String> body) throws IOException {
         Category category = Category.builder()
                 .name(body.get("name"))
                 .build();
 
-        boolean result = false;
-
         try {
-            categoryDAO.save(category);
-            result = true;
+            return categoryDAO.save(category);
+
         } catch (PersistenceException e) {
             logToFile.logWarningToFile(e.getMessage());
         }
-        return result;
+        return null;
     }
 
     public Category getCategory(HashMap<String, String> body) throws IOException {
@@ -68,21 +66,18 @@ public class CategoryService {
         return result;
     }
 
-    public boolean updateCategory(HashMap<String, String> body) throws IOException {
-
-        boolean result = false;
+    public Category updateCategory(HashMap<String, String> body) throws IOException {
 
         try {
             int id = Integer.parseInt(body.get("id"));
             Category one = categoryDAO.getOne(id);
             one.setName(body.get("name"));
-            categoryDAO.save(one);
-            result = true;
+            return categoryDAO.save(one);
 
         } catch (PersistenceException e) {
             logToFile.logWarningToFile(e.getMessage());
         }
 
-        return result;
+        return null;
     }
 }
