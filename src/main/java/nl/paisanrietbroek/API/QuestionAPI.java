@@ -23,7 +23,18 @@ public class QuestionAPI {
     public boolean deleteQuestion(@RequestBody HashMap<String, String> body) throws IOException {
 
         return this.questionService.deleteQuestion(body);
+    }
 
+    @PutMapping
+    public boolean updateQuestion(@RequestBody HashMap<String, String> body) throws IOException {
+
+        return this.questionService.updateQuestion(body);
+
+    }
+
+    @PostMapping
+    public boolean addQuestion(@RequestBody HashMap<String, String> body) throws IOException {
+        return this.questionService.addQuestion(body);
     }
 
 }

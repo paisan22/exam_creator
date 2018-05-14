@@ -102,4 +102,5 @@ public class ExamService {
         Category one = categoryDAO.getOne(id);
         return examDAO.findByCategory(one);
     }
+
 }
